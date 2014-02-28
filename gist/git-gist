@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+## git gist [-v | --version]
+version() {
+    echo "    git gist modules version v0.1.0"
+    echo "        by Jeffrey.L.Roberts@gmail.com"
+    echo
+}
+
+
+## git gist [-h | --help]
+usage() {
+    echo
+    echo " usage: git gist <subcommand>"
+    echo
+    echo "     Available subcommands are:"
+    echo
+    echo "         alias <name> <gist url> - Create an alias for a gist url"
+    echo "         add <gist url>          - Add a gist snippet to your repository"
+    echo "         rm <gist url>           - Remove a gist snippet to your repository"
+    echo "         pull [-a | --all]       - Update all gist snippets in your repository"
+    echo "         pull <gist url>         - Update a specific gist snippet in your repository"
+    echo "         pull <gist alias>       - Update a specific gist snippet in your repository"
+    echo
+}
+
+## Collect arguments
+collect() {
+    while [ ! "$1" == "" ]; do
+        case "$1" in
+            --version | -v)
+                version
+                exit
+            ;;
+            --help | -h) 
+                usage
+                exit
+            ;;
+            alias)
+                alias
+                exit
+            ;;
+        esac
+
+        shift
+    done
+}
+
+# Fire collect to Collect arguments
+collect $@
