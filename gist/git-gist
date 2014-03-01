@@ -15,17 +15,32 @@ usage() {
     echo
     echo "     Available subcommands are:"
     echo
-    echo "         alias <name> <gist url> - Create an alias for a gist url"
-    echo "         add <gist url>          - Add a gist snippet to your repository"
-    echo "         rm <gist url>           - Remove a gist snippet to your repository"
-    echo "         pull [-a | --all]       - Update all gist snippets in your repository"
-    echo "         pull <gist url>         - Update a specific gist snippet in your repository"
-    echo "         pull <gist alias>       - Update a specific gist snippet in your repository"
+    echo "         alias <name> <gist url>      - Create an alias for a gist url"
+    echo "         add <gist url> <destination> - Add a gist snippet to your repository"
+    echo "         rm <gist url>                - Remove a gist snippet to your repository"
+    echo "         pull [-a | --all]            - Update all gist snippets in your repository"
+    echo "         pull <gist url>              - Update a specific gist snippet in your repository"
+    echo "         pull <gist alias>            - Update a specific gist snippet in your repository"
     echo
 }
 
+## git gist add <gist url> <destination>
+add() {
+
+}
+
+## git gist add <gist url> <destination>
+rm() {
+
+}
+
+## git gist add <gist url> <destination>
+pull() {
+
+}
+
 ## Collect arguments
-collect() {
+collectAndExcute() {
     while [ ! "$1" == "" ]; do
         case "$1" in
             --version | -v)
@@ -37,8 +52,33 @@ collect() {
                 exit
             ;;
             alias)
-                alias
+                if [ ! $2 == '' && ! $3 == '' ]; then                    
+                    alias $2 $3
+                else
+                    usage
+                fi
                 exit
+            ;;
+            add)
+                if [ ! $2 == '' ]; then
+                    add $2
+                else
+                    usage    
+                fi
+            ;;
+            rm)
+                if [ ! $2 == '' ]; then
+                    rm $2
+                else 
+                    usage
+                fi
+            ;;
+            pull)
+                if [ ! $2 == '' ]; then
+                    pull $2
+                else 
+                    usage
+                fi
             ;;
         esac
 
@@ -46,5 +86,5 @@ collect() {
     done
 }
 
-# Fire collect to Collect arguments
-collect $@
+# Execute the application
+collectAndExcute $@
